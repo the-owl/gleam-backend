@@ -1,0 +1,25 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:10.4
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - './scripts/db:/docker-entrypoint-initdb.d'
+
+  gleam-backend:
+    build:
+      context: .
+    image: registry.gitlab.com/apptolab_ru/gleam-backend:latest
+    networks:
+      - backend
+    volumes:
+      - './config.yaml:/app/config.yaml'
+    depends_on:
+      - postgres
+    ports:
+      - '8000:8000'
+
+networks:
+  backend:

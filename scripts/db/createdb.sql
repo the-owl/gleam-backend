@@ -1,0 +1,2 @@
+CREATE USER gleam;
+CREATE DATABASE gleam OWNER = gleam;

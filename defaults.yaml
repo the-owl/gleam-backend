@@ -1,8 +1,10 @@
 database:
+  migrations:
+    - "dist/migration/**/*.js"
   type: postgres
   host: localhost
-  username: clinics
+  username: gleam
   password: ''
-  database: clinics
+  database: gleam
 http:
   port: 8000
