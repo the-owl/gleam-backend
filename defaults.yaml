@@ -1,2 +1,8 @@
+database:
+  type: postgres
+  host: localhost
+  username: clinics
+  password: ''
+  database: clinics
 http:
   port: 8000
