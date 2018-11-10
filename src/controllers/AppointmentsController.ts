@@ -55,7 +55,7 @@ export class AppointmentController implements interfaces.Controller {
   @httpGet('/')
   private async getAppointments (req: Request, res: Response) {
     const page = Number(req.query.page) || 0;
-    const perPage = 30;
+    const perPage = Number(req.query.perPage) || 10;
 
     const [appointments, total] = await this.appointmentRepository.findAndCount({
       order: {

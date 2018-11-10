@@ -7,6 +7,7 @@
       :totalRows='totalRecords'
       :pagination-options='{
         enabled: true,
+        page, perPage
       }'
       :search-options='{
         enabled: false
@@ -62,7 +63,7 @@ export default {
           type: '',
         },
         page: 1, 
-        perPage: 30
+        perPage: 10
       }
     }; 
   },
@@ -70,7 +71,9 @@ export default {
     async loadItems () {
       this.loading = true;
       try {
-        const response = await fetch('/api/appointments');
+        const response = await fetch(
+          `/api/appointments?page=${this.serverParams.page - 1}&perPage=${this.serverParams.perPage}`
+        );
         const jsonResponse = await response.json();
         this.rows = jsonResponse.data.appointments.map(appointment => ({
           ...appointment,
