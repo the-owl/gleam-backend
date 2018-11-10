@@ -26,8 +26,8 @@ services:
     image: registry.gitlab.com/apptolab_ru/gleam-backend/nginx:latest
     networks:
       - backend
-    #volumes:
-    #  - './config.yaml:/app/config.yaml'
+    volumes:
+      - './client/.htpasswd:/etc/nginx/.htpasswd'
     depends_on:
       - gleam-backend
     ports:
