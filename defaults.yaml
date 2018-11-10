@@ -1,4 +1,6 @@
 database:
+  entities:
+    - "dist/entity/**/*.js"
   migrations:
     - "dist/migration/**/*.js"
   type: postgres

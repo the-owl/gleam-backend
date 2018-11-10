@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
 import '../controllers/ClinicsController';
+import '../controllers/AppointmentsController';
 import { createDatabaseModule } from './createDatabaseModule';
 
 
