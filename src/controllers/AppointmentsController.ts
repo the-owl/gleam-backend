@@ -1,4 +1,4 @@
-import { interfaces, controller, httpPost } from 'inversify-express-utils';
+import { interfaces, controller, httpPost, httpGet } from 'inversify-express-utils';
 import { Repository } from 'typeorm';
 import { TYPES } from '../ioc/types';
 import { inject } from 'inversify';
@@ -50,5 +50,34 @@ export class AppointmentController implements interfaces.Controller {
     await this.appointmentRepository.save(appointment);
 
     res.status(200).json({ success: true });
+  }
+
+  @httpGet('/')
+  private async getAppointments (req: Request, res: Response) {
+    const page = Number(req.query.page) || 0;
+    const perPage = 30;
+
+    const [appointments, total] = await this.appointmentRepository.findAndCount({
+      order: {
+        id: 'DESC'
+      },
+      relations: ['clinic'],
+      skip: page * perPage,
+      take: perPage
+    });
+
+    const rows = appointments.map(appointment => ({
+      clinic: {
+        id: appointment.clinic!.id,
+        name: appointment.clinic!.name
+      },
+      date: appointment.date!.unix(),
+      email: appointment.email,
+      id: appointment.id,
+      name: appointment.name,
+      phone: appointment.phone
+    }));
+
+    res.json({ success: true, data: { appointments: rows, total } });
   }
 }

@@ -11,15 +11,27 @@ services:
   gleam-backend:
     build:
       context: .
-    image: registry.gitlab.com/apptolab_ru/gleam-backend:latest
+    # gitlab is used to host Docker images
+    image: registry.gitlab.com/apptolab_ru/gleam-backend/server:latest
     networks:
       - backend
     volumes:
       - './config.yaml:/app/config.yaml'
     depends_on:
       - postgres
+
+  nginx:
+    build:
+      context: client
+    image: registry.gitlab.com/apptolab_ru/gleam-backend/nginx:latest
+    networks:
+      - backend
+    #volumes:
+    #  - './config.yaml:/app/config.yaml'
+    depends_on:
+      - gleam-backend
     ports:
-      - '8000:8000'
+      - '9000:80'
 
 networks:
   backend:
