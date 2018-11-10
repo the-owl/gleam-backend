@@ -37,7 +37,7 @@ export class ClinicsController implements interfaces.Controller {
         id: clinic.id,
         isOpen,
         name: clinic.name,
-        opensAt: isOpen ? null : clinic.schedule!.getNextOpenDate(now),
+        opensAt: isOpen ? null : clinic.schedule!.getNextOpenDate(now)!.unix(),
         position: [clinic.lat, clinic.lon],
         rating: clinic.rating,
         type: clinic.type
