@@ -24,7 +24,7 @@ export class Schedule {
   /**
    * Returns time when clinic will be open next time (or returns now, if it's open right now).
    * Returns null if it won't be open during next 365 days.
-   * 
+   *
    * @param now Current time. Next open time will be looked up after this datetime.
    */
   getNextOpenDate (now: moment.Moment): moment.Moment | null {

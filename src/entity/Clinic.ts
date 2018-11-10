@@ -80,6 +80,7 @@ export class Clinic {
   @Min(1) @Max(5)
   rating?: number;
 
+  // TODO: use proper geo type (postgis?)
   @Column('float')
   lat?: number;
 
