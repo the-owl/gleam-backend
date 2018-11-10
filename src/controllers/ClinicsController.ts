@@ -43,6 +43,17 @@ export class ClinicsController implements interfaces.Controller {
         rating: clinic.rating,
         type: clinic.type
       };
+    }).sort((a, b) => {
+      if (!a.distance || !b.distance) {
+        return 0;
+      }
+      if (a.distance > b.distance) {
+        return 1;
+      }
+      if (a.distance < b.distance) {
+        return -1;
+      }
+      return 0;
     });
     res.json({ success: true, data: clinicsJson });
   }
