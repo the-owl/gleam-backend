@@ -5,6 +5,7 @@ import { Clinic } from '../entity/Clinic';
 import { inject } from 'inversify';
 import { Request, Response } from 'express';
 import * as moment from 'moment';
+import * as geolib from 'geolib';
 
 
 @controller('/clinics')
@@ -21,10 +22,10 @@ export class ClinicsController implements interfaces.Controller {
     }
 
     function getDistance (pos1: any, pos2: any) {
-      return Math.sqrt(
-        Math.pow(pos2[0] - pos1[0], 2) +
-        Math.pow(pos2[1] - pos1[1], 2)
-      ) * 100;
+      return geolib.getDistance(
+        { latitude: pos1[0], longitude: pos1[1]},
+        { latitude: pos2[0], longitude: pos2[1]}
+      ) / 1000;
     }
 
     const clinics = await this.clinicsRepository.find();
